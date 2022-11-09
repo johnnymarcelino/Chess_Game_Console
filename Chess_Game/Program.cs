@@ -7,11 +7,9 @@ namespace Chess_Game
     {
         static void Main(string[] args)
         {
-            Position P;
+            GameBoard gmbd = new GameBoard(8, 8);
 
-            P = new Position(3, 4);
-
-            Console.WriteLine("Position: " + P);
+            Console.WriteLine("Position: " + gmbd);
             Console.ReadLine();
         }
     }

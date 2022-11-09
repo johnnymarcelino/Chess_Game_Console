@@ -1,10 +1,9 @@
-﻿
-namespace Game_Board
+﻿namespace Game_Board
 {
     internal class Position
     {
-        public int Line;
-        public int Column;
+        public int Line { get; set; }
+        public int Column { get; set; }
 
         public Position(int line, int column)
         {

@@ -8,9 +8,9 @@
         public int QteMovimento { get; protected set; }
         public GameBoard Gmbd { get; protected set; }
 
-        public Piece(Position position, GameBoard gmbd, Color color)
+        public Piece(GameBoard gmbd, Color color)
         {
-            this.Position = position;
+            this.Position = null;
             this.Gmbd = gmbd;
             this.Color = color;
             this.QteMovimento = 0;

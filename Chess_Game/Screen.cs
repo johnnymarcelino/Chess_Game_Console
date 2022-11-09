@@ -5,7 +5,7 @@ namespace Chess_Game
 {
     internal class Screen
     {
-        public static void GameBoardPrint(GameBoard gmbd)
+        public static void GameBoardPrint(GameBoard gmbd)  // static => membro não necessita da instaciação da classe, .:. livre
         {
             for (int i = 0; i < gmbd.Lines; i++)
             {

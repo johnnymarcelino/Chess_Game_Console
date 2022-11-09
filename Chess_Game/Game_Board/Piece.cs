@@ -3,17 +3,17 @@
     internal class Piece
     {
 
-        public Position position { get; set; }
-        public Color color { get; protected set; }
-        public int qteMovimento { get; protected set; }
-        public GameBoard gmbd { get; protected set; }
+        public Position Position { get; set; }
+        public Color Color { get; protected set; }  // protected => acessado somente pelas subclasses e por ela própria
+        public int QteMovimento { get; protected set; }
+        public GameBoard Gmbd { get; protected set; }
 
         public Piece(Position position, GameBoard gmbd, Color color)
         {
-            this.position = position;
-            this.gmbd = gmbd;
-            this.color = color;
-            this.qteMovimento = 0;
+            this.Position = position;
+            this.Gmbd = gmbd;
+            this.Color = color;
+            this.QteMovimento = 0;
         }
     }
 }

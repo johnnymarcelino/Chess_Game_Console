@@ -3,19 +3,22 @@
     internal class GameBoard
     {
 
-        public int lines { get; set; }
-        public int columns { get; set; }
+        public int Lines { get; set; }
+        public int Columns { get; set; }
 
-        private Piece[,] pieces;  // privativa, somente tabuleiro controla
+        private Piece[,] Pieces;  // privativa, somente tabuleiro controla
 
 
         public GameBoard(int lines, int columns)
         {
-            this.lines = lines;
-            this.columns = columns;
-            pieces = new Piece[lines, columns];
+            this.Lines = lines;
+            this.Columns = columns;
+            Pieces = new Piece[lines, columns];
         }
 
-
+        public Piece Piece(int line, int column)
+        {
+            return Pieces[line, column];
+        }
     }
 }

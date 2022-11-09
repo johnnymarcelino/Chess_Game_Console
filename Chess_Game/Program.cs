@@ -7,9 +7,10 @@ namespace Chess_Game
     {
         static void Main(string[] args)
         {
-            GameBoard gmbd = new GameBoard(8, 8);
+            GameBoard gmbd = new GameBoard(8, 8);  // tipo matriz inicia-se com valor nulo.
 
-            Console.WriteLine("Position: " + gmbd);
+
+            Screen.GameBoardPrint(gmbd);
             Console.ReadLine();
         }
     }

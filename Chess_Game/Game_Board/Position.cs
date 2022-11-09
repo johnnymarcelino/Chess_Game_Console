@@ -2,18 +2,18 @@
 {
     internal class Position
     {
-        public int Line { get; set; }
-        public int Column { get; set; }
+        public int LinePosition { get; set; }
+        public int ColumnPosition { get; set; }
 
         public Position(int line, int column)
         {
-            this.Line = line;
-            this.Column = column ;
+            this.LinePosition = line;
+            this.ColumnPosition = column ;
         }
 
         public override string ToString()
         {
-            return Line + ", " + Column;
+            return LinePosition + ", " + ColumnPosition;
         }
 
     }

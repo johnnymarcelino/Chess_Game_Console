@@ -43,6 +43,18 @@
             p.Position = pos;
         }
 
+        public Piece WithdrawPiece(Position pos)
+        {
+            if (Piece(pos) == null)
+            {
+                return null;
+            }
+            Piece aux = Piece(pos);
+            aux.Position = null;
+            Pieces[pos.LinePosition, pos.ColumnPosition] = null;
+            return aux;
+        }
+
         public bool ValidPositon(Position pos)
         {
             if(pos.LinePosition < 0 || pos.LinePosition >= Lines || pos.ColumnPosition < 0 || pos.ColumnPosition >= Columns)

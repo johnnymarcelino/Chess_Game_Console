@@ -11,14 +11,24 @@ namespace Chess_Game
         {
             try
             {
-                GameBoard gmbd = new GameBoard(8, 8);  // tipo matriz inicia-se com valor nulo.
+                ChessGame game = new ChessGame();
 
-                gmbd.PutPiece(new Tower(gmbd, Color.Black), new Position(1, 5));
-                gmbd.PutPiece(new Tower(gmbd, Color.Black), new Position(4, 3));
-                gmbd.PutPiece(new Rey(gmbd, Color.Black), new Position(1, 3));
-                Screen.GameBoardPrint(gmbd);
+                while (!game.Finished)
+                {
+                    Console.Clear();
+                    Screen.GameBoardPrint(game.Gmbd);
 
-                gmbd.PutPiece(new Tower(gmbd, Color.White), new Position(3, 5));
+                    Console.WriteLine();
+                    Console.Write("Origin: ");
+                    Position origen = Screen.ReadChessPosition().ToPosition();
+                    Console.WriteLine("Destination: ");
+                    Position destination = Screen.ReadChessPosition().ToPosition();
+
+                    game.MoveOut(origen, destination);
+                }
+
+
+
             }
             catch (GameBoardException e)
             {

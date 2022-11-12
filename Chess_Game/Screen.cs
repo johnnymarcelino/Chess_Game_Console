@@ -1,5 +1,6 @@
 ﻿using System;
 using Game_Board;
+using Chess;
 
 namespace Chess_Game
 {
@@ -20,12 +21,19 @@ namespace Chess_Game
                     {
                         PrintPiece(gmbd.Piece(i, j));
                         Console.Write(" ");
-                        //Console.Write(gmbd.Piece(i, j) + " ");
                     }
                 }
                 Console.WriteLine();
             }
             Console.WriteLine("  a b c d e f g h");
+        }
+
+        public static ChessPosition ReadChessPosition()
+        {
+            string s = Console.ReadLine();
+            char column = s[0];
+            int line = int.Parse(s[1] + "");
+            return new ChessPosition(column, line);
         }
 
         public static void PrintPiece(Piece piece)

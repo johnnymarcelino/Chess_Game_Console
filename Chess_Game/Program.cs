@@ -8,12 +8,19 @@ namespace Chess_Game
     {
         static void Main(string[] args)
         {
-            GameBoard gmbd = new GameBoard(8, 8);  // tipo matriz inicia-se com valor nulo.
+            try
+            {
+                GameBoard gmbd = new GameBoard(8, 8);  // tipo matriz inicia-se com valor nulo.
 
-            gmbd.PutPiece(new Tower(gmbd, Color.Preta), new Position(0, 0));
-            gmbd.PutPiece(new Tower(gmbd, Color.Preta), new Position(1, 3));
-            gmbd.PutPiece(new Rey(gmbd, Color.Preta), new Position(2, 4));
-            Screen.GameBoardPrint(gmbd);
+                gmbd.PutPiece(new Tower(gmbd, Color.Preta), new Position(0, 0));
+                gmbd.PutPiece(new Tower(gmbd, Color.Preta), new Position(8, 3));
+                gmbd.PutPiece(new Rey(gmbd, Color.Preta), new Position(1, 3));
+                Screen.GameBoardPrint(gmbd);
+            }
+            catch (GameBoardException e)
+            {
+                Console.WriteLine(e.Message);
+            }
             Console.ReadLine();
         }
     }

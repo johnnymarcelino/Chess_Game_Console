@@ -21,10 +21,43 @@
             return Pieces[line, column];
         }
 
+        public Piece Piece(Position pos)
+        {
+            return Pieces[pos.LinePosition, pos.ColumnPosition];
+        }
+
+        public bool ExitPiece(Position pos)
+        {
+            PositionValidation(pos);
+            return Piece(pos) != null;
+        }
+
+
         public void PutPiece(Piece p, Position pos)
         {
+            if (ExitPiece(pos))
+            {
+                throw new GameBoardException("There is already a piece in this position!");
+            }
             Pieces[pos.LinePosition, pos.ColumnPosition] = p;
             p.Position = pos;
+        }
+
+        public bool ValidPositon(Position pos)
+        {
+            if(pos.LinePosition < 0 || pos.LinePosition >= Lines || pos.ColumnPosition < 0 || pos.ColumnPosition >= Columns)
+            {
+                return false;
+            }
+            return true;
+        }
+
+        public void PositionValidation(Position pos)
+        {
+            if (!ValidPositon(pos))
+            {
+                throw new GameBoardException("Invalid Position");
+            }
         }
 
     }

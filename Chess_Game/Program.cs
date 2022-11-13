@@ -21,14 +21,18 @@ namespace Chess_Game
                     Console.WriteLine();
                     Console.Write("Origin: ");
                     Position origen = Screen.ReadChessPosition().ToPosition();
+
+                    bool[,] possiblePositions = game.Gmbd.Piece(origen).PossibleMoves();
+
+                    Console.Clear();
+                    Screen.GameBoardPrint(game.Gmbd, possiblePositions);
+
+                    Console.WriteLine();
                     Console.WriteLine("Destination: ");
                     Position destination = Screen.ReadChessPosition().ToPosition();
 
                     game.MoveOut(origen, destination);
                 }
-
-
-
             }
             catch (GameBoardException e)
             {

@@ -11,10 +11,15 @@
             this.ColumnPosition = column ;
         }
 
+        public void DefineValues(int lines, int column)
+        {
+            LinePosition = lines;
+            ColumnPosition = column;
+        }
+
         public override string ToString()
         {
             return LinePosition + ", " + ColumnPosition;
         }
-
     }
 }

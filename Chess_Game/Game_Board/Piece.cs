@@ -1,6 +1,6 @@
 ﻿namespace Game_Board
 {
-    internal class Piece
+    abstract class Piece
     {
 
         public Position Position { get; set; }
@@ -15,6 +15,8 @@
             this.Color = color;
             this.QtyMove = 0;
         }
+
+        public abstract bool[,] PossibleMoves();
 
         public void IncludeQtyMove()
         {

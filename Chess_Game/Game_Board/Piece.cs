@@ -18,6 +18,28 @@
 
         public abstract bool[,] PossibleMoves();
 
+        public bool ExistPossibleMoves()
+        {
+            bool[,] mat = PossibleMoves();
+            for (int i = 0; i < Gmbd.Lines; i++)
+            {
+                for (int j = 0; j < Gmbd.Columns; j++)
+                {
+                    if (mat[i, j])
+                    {
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
+
+        public bool CanMoveTo(Position pos)
+        {
+            return PossibleMoves()[pos.LinePosition, pos.ColumnPosition];
+        }
+
+
         public void IncludeQtyMove()
         {
             QtyMove++;

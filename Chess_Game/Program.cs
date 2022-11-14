@@ -18,10 +18,7 @@ namespace Chess_Game
                     try
                     {
                         Console.Clear();
-                        Screen.GameBoardPrint(game.Gmbd);
-                        Console.WriteLine();
-                        Console.WriteLine("Shift: " + game.Shift);
-                        Console.WriteLine("Waiting for the next moving: " + game.CurrentPlaryer);
+                        Screen.PrintMatch(game);
 
                         Console.WriteLine();
                         Console.Write("Origin: ");

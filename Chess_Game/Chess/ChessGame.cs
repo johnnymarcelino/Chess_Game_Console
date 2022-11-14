@@ -1,7 +1,5 @@
 ﻿using Game_Board;
-using System;
-using System.Runtime;
-using System.Runtime.CompilerServices;
+using System.Collections.Generic;
 
 namespace Chess
 {
@@ -12,6 +10,8 @@ namespace Chess
         public int Shift { get; private set; }
         public Color CurrentPlaryer { get; private set; }
         public bool Finished { get; private set; }
+        private HashSet<Piece> pieces;  // = new HashSet<Piece>();
+        private HashSet<Piece> captured;  // = new HashSet<Piece>();
 
 
         public ChessGame()
@@ -20,6 +20,8 @@ namespace Chess
             Shift = 1;
             CurrentPlaryer = Color.White;
             Finished = false;
+            pieces = new HashSet<Piece>();
+            captured = new HashSet<Piece>();
             PutPieces();
         }
 
@@ -29,6 +31,10 @@ namespace Chess
             p.IncludeQtyMove();
             Piece capturedPiece = Gmbd.WithdrawPiece(destination);
             Gmbd.PutPiece(p, destination);
+            if (capturedPiece != null)
+            {
+                captured.Add(capturedPiece);
+            }
         }
 
         public void MakePlay(Position origin, Position destination)
@@ -74,21 +80,55 @@ namespace Chess
             }
         }
 
+        public HashSet<Piece> CapturedPieces(Color color)
+        {
+            HashSet<Piece> aux = new HashSet<Piece>();
+            foreach (Piece eachPiece in captured)
+            {
+                if (eachPiece.Color == color)
+                {
+                    aux.Add(eachPiece);
+                }
+            }
+            return aux;
+        }
+
+        public HashSet<Piece> PiecesInGame(Color color)
+        {
+            HashSet<Piece> aux = new HashSet<Piece>();
+            foreach (Piece eachPiece in pieces)
+            {
+                if (eachPiece.Color == color)
+                {
+                    aux.Add(eachPiece);
+                }
+            }
+            aux.ExceptWith(CapturedPieces(color));  // ExceptWith -> retorna todas as peças, exceto a peça capturada
+            return aux;
+        }
+
+
+        public void PutNewPiece(char column, int line, Piece piece)
+        {
+            Gmbd.PutPiece(piece, new ChessPosition(column, line).ToPosition());
+            pieces.Add(piece);
+        }
+
         private void PutPieces()
         {
-            Gmbd.PutPiece(new Tower(Gmbd, Color.White), new ChessPosition('c', 1).ToPosition());
-            Gmbd.PutPiece(new Tower(Gmbd, Color.White), new ChessPosition('c', 2).ToPosition());
-            Gmbd.PutPiece(new Tower(Gmbd, Color.White), new ChessPosition('d', 2).ToPosition());
-            Gmbd.PutPiece(new Tower(Gmbd, Color.White), new ChessPosition('e', 2).ToPosition());
-            Gmbd.PutPiece(new Tower(Gmbd, Color.White), new ChessPosition('e', 1).ToPosition());
-            Gmbd.PutPiece(new Rey(Gmbd, Color.White), new ChessPosition('d', 1).ToPosition());
+            PutNewPiece('c', 1, new Tower(Gmbd, Color.White));
+            PutNewPiece('c', 2, new Tower(Gmbd, Color.White));
+            PutNewPiece('d', 2, new Tower(Gmbd, Color.White));
+            PutNewPiece('e', 2, new Tower(Gmbd, Color.White));
+            PutNewPiece('e', 1, new Tower(Gmbd, Color.White));
+            PutNewPiece('d', 1, new Rey(Gmbd, Color.White));
 
-            Gmbd.PutPiece(new Tower(Gmbd, Color.Black), new ChessPosition('c', 7).ToPosition());
-            Gmbd.PutPiece(new Tower(Gmbd, Color.Black), new ChessPosition('c', 8).ToPosition());
-            Gmbd.PutPiece(new Tower(Gmbd, Color.Black), new ChessPosition('d', 7).ToPosition());
-            Gmbd.PutPiece(new Tower(Gmbd, Color.Black), new ChessPosition('e', 7).ToPosition());
-            Gmbd.PutPiece(new Rey(Gmbd, Color.Black), new ChessPosition('e', 8).ToPosition());
-            Gmbd.PutPiece(new Rey(Gmbd, Color.Black), new ChessPosition('d', 8).ToPosition());
+            PutNewPiece('c', 7, new Tower(Gmbd, Color.Black));
+            PutNewPiece('c', 8, new Tower(Gmbd, Color.Black));
+            PutNewPiece('d', 7, new Tower(Gmbd, Color.Black));
+            PutNewPiece('e', 7, new Tower(Gmbd, Color.Black));
+            PutNewPiece('e', 8, new Rey(Gmbd, Color.Black));
+            PutNewPiece('d', 8, new Rey(Gmbd, Color.Black));
         }
     }
 }

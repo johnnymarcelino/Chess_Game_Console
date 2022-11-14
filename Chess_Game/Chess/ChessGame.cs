@@ -228,20 +228,39 @@ namespace Chess
 
         private void PutPieces()
         {
-            PutNewPiece('c', 1, new Tower(Gmbd, Color.White));
-            //PutNewPiece('c', 2, new Tower(Gmbd, Color.White));
-            //PutNewPiece('d', 2, new Tower(Gmbd, Color.White));
-            //PutNewPiece('e', 2, new Tower(Gmbd, Color.White));
-            //PutNewPiece('e', 1, new Tower(Gmbd, Color.White));
-            PutNewPiece('d', 1, new Rey(Gmbd, Color.White));
-            PutNewPiece('h', 7, new Tower(Gmbd, Color.White));
+            PutNewPiece('a', 1, new Tower(Gmbd, Color.White));
+            PutNewPiece('b', 1, new Horse(Gmbd, Color.White));
+            PutNewPiece('c', 1, new Bishop(Gmbd, Color.White));
+            PutNewPiece('d', 1, new Queen(Gmbd, Color.White));
+            PutNewPiece('e', 1, new Rey(Gmbd, Color.White));
+            PutNewPiece('f', 1, new Bishop(Gmbd, Color.White));
+            PutNewPiece('g', 1, new Horse(Gmbd, Color.White));
+            PutNewPiece('h', 1, new Tower(Gmbd, Color.White));
+            PutNewPiece('a', 2, new Pawn(Gmbd, Color.White));
+            PutNewPiece('b', 2, new Pawn(Gmbd, Color.White));
+            PutNewPiece('c', 2, new Pawn(Gmbd, Color.White));
+            PutNewPiece('d', 2, new Pawn(Gmbd, Color.White));
+            PutNewPiece('e', 2, new Pawn(Gmbd, Color.White));
+            PutNewPiece('f', 2, new Pawn(Gmbd, Color.White));
+            PutNewPiece('g', 2, new Pawn(Gmbd, Color.White));
+            PutNewPiece('h', 2, new Pawn(Gmbd, Color.White));
 
-            //PutNewPiece('c', 7, new Tower(Gmbd, Color.Black));
-            //PutNewPiece('c', 8, new Tower(Gmbd, Color.Black));
-            //PutNewPiece('d', 7, new Tower(Gmbd, Color.Black));
-            //PutNewPiece('e', 7, new Tower(Gmbd, Color.Black));
-            PutNewPiece('a', 8, new Rey(Gmbd, Color.Black));
-            PutNewPiece('b', 8, new Tower(Gmbd, Color.Black));
+            PutNewPiece('a', 8, new Tower(Gmbd, Color.Black));
+            PutNewPiece('b', 8, new Horse(Gmbd, Color.Black));
+            PutNewPiece('c', 8, new Bishop(Gmbd, Color.Black));
+            PutNewPiece('d', 8, new Queen(Gmbd, Color.Black));
+            PutNewPiece('e', 8, new Rey(Gmbd, Color.Black));
+            PutNewPiece('f', 8, new Bishop(Gmbd, Color.Black));
+            PutNewPiece('g', 8, new Horse(Gmbd, Color.Black));
+            PutNewPiece('h', 8, new Tower(Gmbd, Color.Black));
+            PutNewPiece('a', 7, new Pawn(Gmbd, Color.Black));
+            PutNewPiece('b', 7, new Pawn(Gmbd, Color.Black));
+            PutNewPiece('c', 7, new Pawn(Gmbd, Color.Black));
+            PutNewPiece('d', 7, new Pawn(Gmbd, Color.Black));
+            PutNewPiece('e', 7, new Pawn(Gmbd, Color.Black));
+            PutNewPiece('f', 7, new Pawn(Gmbd, Color.Black));
+            PutNewPiece('g', 7, new Pawn(Gmbd, Color.Black));
+            PutNewPiece('h', 7, new Pawn(Gmbd, Color.Black));
         }
     }
 }

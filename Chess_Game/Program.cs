@@ -43,6 +43,8 @@ namespace Chess_Game
                         Console.ReadLine();
                     }
                 }
+                Console.Clear();
+                Screen.PrintMatch(game);
             }
             catch (GameBoardException e)
             {

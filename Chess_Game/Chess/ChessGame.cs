@@ -70,8 +70,16 @@ namespace Chess
                 Check = false;
             }
 
-            Shift++;
-            ChangePlayer();
+            if (TestCheckmate(Opponent(CurrentPlaryer)))
+            {
+                Finished = true;
+            }
+            else
+            {
+                Shift++;
+                ChangePlayer();
+            }
+
 
         }
 
@@ -152,11 +160,11 @@ namespace Chess
 
         private Piece Rey(Color color)
         {
-            foreach (Piece pieceX in PiecesInGame(color))
+            foreach (Piece x in PiecesInGame(color))
             {
-                if (pieceX is Rey)
+                if (x is Rey)
                 {
-                    return pieceX;
+                    return x;
                 }
             }
             return null;
@@ -181,6 +189,37 @@ namespace Chess
             return false;
         }
 
+        public bool TestCheckmate(Color color)  // rei de uma determinada cor está em checkmate
+        {
+            if(!IsInCheck(color))
+            {
+                return false;
+            }
+            foreach (Piece x in PiecesInGame(color))
+            {
+                bool[,] mat = x.PossibleMoves();
+                for (int i = 0; i < Gmbd.Lines; i++)
+                {
+                    for(int j = 0; j < Gmbd.Columns; j++)
+                    {
+                        if (mat[i, j])
+                        {
+                            Position origen = x.Position;
+                            Position destiation = new Position(i, j);
+                            Piece capturedPiece = MoveOut(origen, destiation);
+                            bool testCheck = IsInCheck(color);
+                            UndoMove(origen, destiation, capturedPiece);
+                            if (!testCheck)
+                            {
+                                return false;
+                            }
+                        }
+                    }
+                }
+            }
+            return true;
+        }
+
         public void PutNewPiece(char column, int line, Piece piece)
         {
             Gmbd.PutPiece(piece, new ChessPosition(column, line).ToPosition());
@@ -190,18 +229,19 @@ namespace Chess
         private void PutPieces()
         {
             PutNewPiece('c', 1, new Tower(Gmbd, Color.White));
-            PutNewPiece('c', 2, new Tower(Gmbd, Color.White));
-            PutNewPiece('d', 2, new Tower(Gmbd, Color.White));
-            PutNewPiece('e', 2, new Tower(Gmbd, Color.White));
-            PutNewPiece('e', 1, new Tower(Gmbd, Color.White));
+            //PutNewPiece('c', 2, new Tower(Gmbd, Color.White));
+            //PutNewPiece('d', 2, new Tower(Gmbd, Color.White));
+            //PutNewPiece('e', 2, new Tower(Gmbd, Color.White));
+            //PutNewPiece('e', 1, new Tower(Gmbd, Color.White));
             PutNewPiece('d', 1, new Rey(Gmbd, Color.White));
+            PutNewPiece('h', 7, new Tower(Gmbd, Color.White));
 
-            PutNewPiece('c', 7, new Tower(Gmbd, Color.Black));
-            PutNewPiece('c', 8, new Tower(Gmbd, Color.Black));
-            PutNewPiece('d', 7, new Tower(Gmbd, Color.Black));
-            PutNewPiece('e', 7, new Tower(Gmbd, Color.Black));
-            PutNewPiece('e', 8, new Rey(Gmbd, Color.Black));
-            PutNewPiece('d', 8, new Rey(Gmbd, Color.Black));
+            //PutNewPiece('c', 7, new Tower(Gmbd, Color.Black));
+            //PutNewPiece('c', 8, new Tower(Gmbd, Color.Black));
+            //PutNewPiece('d', 7, new Tower(Gmbd, Color.Black));
+            //PutNewPiece('e', 7, new Tower(Gmbd, Color.Black));
+            PutNewPiece('a', 8, new Rey(Gmbd, Color.Black));
+            PutNewPiece('b', 8, new Tower(Gmbd, Color.Black));
         }
     }
 }

@@ -15,10 +15,18 @@ namespace Chess_Game
             PrintCapturedPieces(game);
             Console.WriteLine();
             Console.WriteLine("Shift: " + game.Shift);
-            Console.WriteLine("Waiting the next player: " + game.CurrentPlaryer);
-            if (game.Check)
+            if (!game.Finished)
             {
-                Console.WriteLine("Check!");
+                Console.WriteLine("Waiting the next player: " + game.CurrentPlaryer);
+                if (game.Check)
+                {
+                    Console.WriteLine("Check!");
+                }
+            }
+            else
+            {
+                Console.WriteLine("CHECKMATE!");
+                Console.WriteLine("Winner: " + game.CurrentPlaryer);
             }
             Console.WriteLine();
         }

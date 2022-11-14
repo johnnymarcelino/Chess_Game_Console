@@ -1,5 +1,6 @@
 ﻿using Game_Board;
 using System.Collections.Generic;
+using System.Reflection;
 
 namespace Chess
 {
@@ -12,7 +13,7 @@ namespace Chess
         public bool Finished { get; private set; }
         private HashSet<Piece> pieces;  // = new HashSet<Piece>();
         private HashSet<Piece> captured;  // = new HashSet<Piece>();
-
+        public bool Check { get; private set; }
 
         public ChessGame()
         {
@@ -20,12 +21,13 @@ namespace Chess
             Shift = 1;
             CurrentPlaryer = Color.White;
             Finished = false;
+            Check = false;
             pieces = new HashSet<Piece>();
             captured = new HashSet<Piece>();
             PutPieces();
         }
 
-        public void MoveOut(Position origin, Position destination)
+        public Piece MoveOut(Position origin, Position destination)
         {
             Piece p = Gmbd.WithdrawPiece(origin);
             p.IncludeQtyMove();
@@ -35,13 +37,42 @@ namespace Chess
             {
                 captured.Add(capturedPiece);
             }
+            return capturedPiece;
+        }
+
+        public void UndoMove(Position origin, Position destination, Piece capturedPiece)
+        {
+            Piece piece = Gmbd.WithdrawPiece(destination);
+            piece.DecreaseQtyMove();
+            if (capturedPiece != null)
+            {
+                Gmbd.PutPiece(capturedPiece, destination);
+                captured.Remove(capturedPiece);
+            }
+            Gmbd.PutPiece(piece, origin);
         }
 
         public void MakePlay(Position origin, Position destination)
         {
-            MoveOut(origin, destination);
+            Piece capturedPiece = MoveOut(origin, destination);
+            if (IsInCheck(CurrentPlaryer))
+            {
+                UndoMove(origin, destination, capturedPiece);
+                throw new GameBoardException("You can't put yourself in check!");
+            }
+
+            if (IsInCheck(Opponent(CurrentPlaryer)))
+            {
+                Check = true;
+            }
+            else
+            {
+                Check = false;
+            }
+
             Shift++;
             ChangePlayer();
+
         }
 
         public void ValidateOriginPosition(Position pos)
@@ -107,6 +138,48 @@ namespace Chess
             return aux;
         }
 
+        private Color Opponent(Color color)
+        {
+            if (color == Color.White)
+            {
+                return Color.Black;
+            }
+            else
+            {
+                return Color.White;
+            }
+        }
+
+        private Piece Rey(Color color)
+        {
+            foreach (Piece pieceX in PiecesInGame(color))
+            {
+                if (pieceX is Rey)
+                {
+                    return pieceX;
+                }
+            }
+            return null;
+        }
+
+        public bool IsInCheck(Color color)
+        {
+            Piece r = Rey(color);
+            if (r == null)
+            {
+                throw new GameBoardException("There is not a Rey in the color " + color + " on the gameboard");
+            }
+
+            foreach (Piece piece in PiecesInGame(Opponent(color)))
+            {
+                bool[,] mat = piece.PossibleMoves();
+                if (mat[r.Position.LinePosition, r.Position.ColumnPosition])
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
 
         public void PutNewPiece(char column, int line, Piece piece)
         {

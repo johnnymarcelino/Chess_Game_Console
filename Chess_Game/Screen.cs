@@ -16,6 +16,11 @@ namespace Chess_Game
             Console.WriteLine();
             Console.WriteLine("Shift: " + game.Shift);
             Console.WriteLine("Waiting the next player: " + game.CurrentPlaryer);
+            if (game.Check)
+            {
+                Console.WriteLine("Check!");
+            }
+            Console.WriteLine();
         }
 
         public static void PrintCapturedPieces(ChessGame game)

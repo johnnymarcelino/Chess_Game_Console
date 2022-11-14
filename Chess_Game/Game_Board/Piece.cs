@@ -39,10 +39,14 @@
             return PossibleMoves()[pos.LinePosition, pos.ColumnPosition];
         }
 
-
         public void IncludeQtyMove()
         {
             QtyMove++;
+        }
+
+        public void DecreaseQtyMove()
+        {
+            QtyMove--;
         }
     }
 }

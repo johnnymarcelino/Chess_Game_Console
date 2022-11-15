@@ -4,8 +4,11 @@ namespace Chess
 {
     internal class Pawn : Piece
     {
-        public Pawn(GameBoard gmbd, Color color) : base(gmbd, color)  // repassa os valores a classe peças - pieces
+        private ChessGame Game;
+
+        public Pawn(GameBoard gmbd, Color color, ChessGame game) : base(gmbd, color)  // repassa os valores a classe peças - pieces
         {
+            this.Game = game;
         }
 
         public override string ToString()
@@ -55,6 +58,21 @@ namespace Chess
                 {
                     mat[pos.LinePosition, pos.ColumnPosition] = true;
                 }
+
+                // # jogada especial - En Passant
+                if (Position.LinePosition == 3)
+                {
+                    Position esquerda = new Position(Position.LinePosition, Position.ColumnPosition - 1);
+                    if (Gmbd.ValidPositon(esquerda) && ExistEnemy(esquerda) && Gmbd.Piece(esquerda) == Game.VulnerableEnPassant)
+                    {
+                        mat[esquerda.LinePosition - 1, esquerda.ColumnPosition] = true;  // possivel para peão se mover
+                    }
+                    Position direita = new Position(Position.LinePosition, Position.ColumnPosition + 1);
+                    if (Gmbd.ValidPositon(direita) && ExistEnemy(direita) && Gmbd.Piece(direita) == Game.VulnerableEnPassant)
+                    {
+                        mat[direita.LinePosition - 1, direita.ColumnPosition] = true;  // possivel para peão se mover - evento possivel
+                    }
+                }
             }
             else
             {
@@ -81,6 +99,21 @@ namespace Chess
                 if (Gmbd.ValidPositon(pos) && ExistEnemy(pos))
                 {
                     mat[pos.LinePosition, pos.ColumnPosition] = true;
+                }
+
+                // # jogada especial - En Passant
+                if (Position.LinePosition == 4)
+                {
+                    Position esquerda = new Position(Position.LinePosition, Position.ColumnPosition - 1);
+                    if (Gmbd.ValidPositon(esquerda) && ExistEnemy(esquerda) && Gmbd.Piece(esquerda) == Game.VulnerableEnPassant)
+                    {
+                        mat[esquerda.LinePosition + 1, esquerda.ColumnPosition] = true;  // possivel para peão se mover
+                    }
+                    Position direita = new Position(Position.LinePosition, Position.ColumnPosition + 1);
+                    if (Gmbd.ValidPositon(direita) && ExistEnemy(direita) && Gmbd.Piece(direita) == Game.VulnerableEnPassant)
+                    {
+                        mat[direita.LinePosition + 1, direita.ColumnPosition] = true;  // possivel para peão se mover - evento possivel
+                    }
                 }
             }
             return mat;

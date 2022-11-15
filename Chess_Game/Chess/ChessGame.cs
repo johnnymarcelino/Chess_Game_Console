@@ -145,6 +145,22 @@ namespace Chess
                 throw new GameBoardException("You can't put yourself in check!");
             }
 
+            Piece p = Gmbd.Piece(destination);
+
+            // #jogada especial - promocao
+            if (p is Pawn)
+            {
+                if ((p.Color == Color.White && destination.LinePosition == 0) || (p.Color == Color.Black && destination.LinePosition == 7))
+                {
+                    p = Gmbd.WithdrawPiece(destination);
+                    pieces.Remove(p);
+                    Piece queen = new Queen(Gmbd, p.Color);
+                    Gmbd.PutPiece(queen, destination);
+                    pieces.Add(queen);
+                }
+            }
+
+
             if (IsInCheck(Opponent(CurrentPlaryer)))
             {
                 Check = true;
@@ -163,8 +179,6 @@ namespace Chess
                 Shift++;
                 ChangePlayer();
             }
-
-            Piece p = Gmbd.Piece(destination);
 
             // # jogada especial - En Passant
             if (p is Pawn && (destination.LinePosition == origin.LinePosition - 2 || destination.LinePosition == origin.LinePosition + 2))

@@ -26,7 +26,7 @@ namespace Chess
             Position pos = new Position(0, 0);
 
             // NO
-            pos.DefineValues(Position.LinePosition - 1, Position.ColumnPosition -1);
+            pos.DefineValues(Position.LinePosition - 1, Position.ColumnPosition - 1);
             while (Gmbd.ValidPositon(pos) && CanMove(pos))
             {
                 mat[pos.LinePosition, pos.ColumnPosition] = true;
@@ -34,7 +34,7 @@ namespace Chess
                 {
                     break;
                 }
-                pos.DefineValues(Position.LinePosition - 1, Position.ColumnPosition -1);
+                pos.DefineValues(pos.LinePosition - 1, pos.ColumnPosition -1);
             }
 
             // NE
@@ -46,7 +46,7 @@ namespace Chess
                 {
                     break;
                 }
-                pos.DefineValues(Position.LinePosition - 1, Position.ColumnPosition + 1);
+                pos.DefineValues(pos.LinePosition - 1, pos.ColumnPosition + 1);
             }
 
             // SE
@@ -58,7 +58,7 @@ namespace Chess
                 {
                     break;
                 }
-                pos.DefineValues(Position.LinePosition + 1, Position.ColumnPosition + 1);
+                pos.DefineValues(pos.LinePosition + 1, pos.ColumnPosition + 1);
             }
 
             // SO
@@ -70,7 +70,7 @@ namespace Chess
                 {
                     break;
                 }
-                pos.DefineValues(Position.LinePosition + 1, Position.ColumnPosition - 1);
+                pos.DefineValues(pos.LinePosition + 1, pos.ColumnPosition - 1);
             }
             return mat;
         }

@@ -33,7 +33,7 @@ namespace Chess
                 {
                     break;
                 }
-                pos.DefineValues(Position.LinePosition, Position.ColumnPosition - 1);
+                pos.DefineValues(pos.LinePosition, pos.ColumnPosition - 1);
             }
 
             // direita
@@ -45,7 +45,7 @@ namespace Chess
                 {
                     break;
                 }
-                pos.DefineValues(Position.LinePosition, Position.ColumnPosition + 1);
+                pos.DefineValues(pos.LinePosition, pos.ColumnPosition + 1);
             }
 
             // acima
@@ -57,7 +57,7 @@ namespace Chess
                 {
                     break;
                 }
-                pos.DefineValues(Position.LinePosition - 1, Position.ColumnPosition);
+                pos.DefineValues(pos.LinePosition - 1, pos.ColumnPosition);
             }
 
             // abaixo
@@ -69,19 +69,7 @@ namespace Chess
                 {
                     break;
                 }
-                pos.DefineValues(Position.LinePosition + 1, Position.ColumnPosition);
-            }
-
-            // acima
-            pos.DefineValues(Position.LinePosition - 1, Position.ColumnPosition);
-            while (Gmbd.ValidPositon(pos) && CanMove(pos))
-            {
-                mat[pos.LinePosition, pos.ColumnPosition] = true;
-                if (Gmbd.Piece(pos) != null && Gmbd.Piece(pos).Color != Color)
-                {
-                    break;
-                }
-                pos.LinePosition = pos.LinePosition - 1;  // pos.LinePosition--
+                pos.DefineValues(pos.LinePosition + 1, pos.ColumnPosition);
             }
 
             // NO
@@ -93,7 +81,7 @@ namespace Chess
                 {
                     break;
                 }
-                pos.DefineValues(Position.LinePosition - 1, Position.ColumnPosition - 1);
+                pos.DefineValues(pos.LinePosition - 1, pos.ColumnPosition - 1);
             }
 
             // NE
@@ -105,7 +93,7 @@ namespace Chess
                 {
                     break;
                 }
-                pos.DefineValues(Position.LinePosition - 1, Position.ColumnPosition + 1);
+                pos.DefineValues(pos.LinePosition - 1, pos.ColumnPosition + 1);
             }
 
             // SE
@@ -117,7 +105,7 @@ namespace Chess
                 {
                     break;
                 }
-                pos.DefineValues(Position.LinePosition + 1, Position.ColumnPosition + 1);
+                pos.DefineValues(pos.LinePosition + 1, pos.ColumnPosition + 1);
             }
 
             // SO
@@ -129,7 +117,7 @@ namespace Chess
                 {
                     break;
                 }
-                pos.DefineValues(Position.LinePosition + 1, Position.ColumnPosition - 1);
+                pos.DefineValues(pos.LinePosition + 1, pos.ColumnPosition - 1);
             }
             return mat;
         }

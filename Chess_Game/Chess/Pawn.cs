@@ -38,7 +38,8 @@ namespace Chess
                 }
 
                 pos.DefineValues(Position.LinePosition - 2, Position.ColumnPosition);
-                if (Gmbd.ValidPositon(pos) && Free(pos) && QtyMove == 0)
+                Position p2 = new Position(Position.LinePosition - 1, Position.ColumnPosition);
+                if (Gmbd.ValidPositon(p2) && Free(p2) && Gmbd.ValidPositon(pos) && Free(pos) && QtyMove == 0)
                 {
                     mat[pos.LinePosition, pos.ColumnPosition] = true;
                 }
@@ -64,7 +65,8 @@ namespace Chess
                 }
 
                 pos.DefineValues(Position.LinePosition + 2, Position.ColumnPosition);
-                if (Gmbd.ValidPositon(pos) && Free(pos) && QtyMove == 0)
+                Position p2 = new Position(Position.LinePosition + 1, Position.ColumnPosition);
+                if (Gmbd.ValidPositon(p2) && Free(p2) && Gmbd.ValidPositon(pos) && Free(pos) && QtyMove == 0)
                 {
                     mat[pos.LinePosition, pos.ColumnPosition] = true;
                 }

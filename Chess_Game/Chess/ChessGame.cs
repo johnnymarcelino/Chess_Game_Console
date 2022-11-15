@@ -1,4 +1,5 @@
 ﻿using Game_Board;
+using Microsoft.Win32.SafeHandles;
 using System.Collections.Generic;
 using System.Reflection;
 
@@ -37,6 +38,26 @@ namespace Chess
             {
                 captured.Add(capturedPiece);
             }
+
+            // # Roque Pequeno
+            if (p is Rey && destination.ColumnPosition == origin.ColumnPosition + 2)
+            {
+                Position originT = new Position(origin.LinePosition, origin.ColumnPosition + 3);
+                Position destinationT = new Position(origin.LinePosition, origin.ColumnPosition + 1);
+                Piece t = Gmbd.WithdrawPiece(originT);
+                t.IncludeQtyMove();  // Agora tem quantidade de movimentos
+                Gmbd.PutPiece(t, destinationT);
+            }
+
+            // # Roque Grande
+            if (p is Rey && destination.ColumnPosition == origin.ColumnPosition - 2)
+            {
+                Position originT = new Position(origin.LinePosition, origin.ColumnPosition - 4);
+                Position destinationT = new Position(origin.LinePosition, origin.ColumnPosition - 1);
+                Piece t = Gmbd.WithdrawPiece(originT);
+                t.IncludeQtyMove();  // Agora tem quantidade de movimentos
+                Gmbd.PutPiece(t, destinationT);
+            }
             return capturedPiece;
         }
 
@@ -50,6 +71,26 @@ namespace Chess
                 captured.Remove(capturedPiece);
             }
             Gmbd.PutPiece(piece, origin);
+
+            // # Roque Pequeno
+            if (piece is Rey && destination.ColumnPosition == origin.ColumnPosition + 2)  // se andou duas casas para esquerda
+            {
+                Position originT = new Position(origin.LinePosition, destination.ColumnPosition + 3);
+                Position destinationT = new Position(origin.LinePosition, destination.ColumnPosition + 1);
+                Piece t = Gmbd.WithdrawPiece(destinationT);  // retira o rei do <destinoT>
+                t.IncludeQtyMove();  // Agora tem quantidade de movimentos
+                Gmbd.PutPiece(t, originT);
+            }
+
+            // # Roque Grande
+            if (piece is Rey && destination.ColumnPosition == origin.ColumnPosition - 2)  // se andou duas casas para esquerda
+            {
+                Position originT = new Position(origin.LinePosition, destination.ColumnPosition - 4);
+                Position destinationT = new Position(origin.LinePosition, destination.ColumnPosition - 1);
+                Piece t = Gmbd.WithdrawPiece(destinationT);  // retira o rei do <destinoT>
+                t.IncludeQtyMove();  // Agora tem quantidade de movimentos
+                Gmbd.PutPiece(t, originT);
+            }
         }
 
         public void MakePlay(Position origin, Position destination)
@@ -79,8 +120,6 @@ namespace Chess
                 Shift++;
                 ChangePlayer();
             }
-
-
         }
 
         public void ValidateOriginPosition(Position pos)
@@ -232,7 +271,7 @@ namespace Chess
             PutNewPiece('b', 1, new Horse(Gmbd, Color.White));
             PutNewPiece('c', 1, new Bishop(Gmbd, Color.White));
             PutNewPiece('d', 1, new Queen(Gmbd, Color.White));
-            PutNewPiece('e', 1, new Rey(Gmbd, Color.White));
+            PutNewPiece('e', 1, new Rey(Gmbd, Color.White, this));
             PutNewPiece('f', 1, new Bishop(Gmbd, Color.White));
             PutNewPiece('g', 1, new Horse(Gmbd, Color.White));
             PutNewPiece('h', 1, new Tower(Gmbd, Color.White));
@@ -249,7 +288,7 @@ namespace Chess
             PutNewPiece('b', 8, new Horse(Gmbd, Color.Black));
             PutNewPiece('c', 8, new Bishop(Gmbd, Color.Black));
             PutNewPiece('d', 8, new Queen(Gmbd, Color.Black));
-            PutNewPiece('e', 8, new Rey(Gmbd, Color.Black));
+            PutNewPiece('e', 8, new Rey(Gmbd, Color.Black, this));
             PutNewPiece('f', 8, new Bishop(Gmbd, Color.Black));
             PutNewPiece('g', 8, new Horse(Gmbd, Color.Black));
             PutNewPiece('h', 8, new Tower(Gmbd, Color.Black));

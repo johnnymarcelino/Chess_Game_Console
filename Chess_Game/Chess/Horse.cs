@@ -48,6 +48,12 @@ namespace Chess
                 mat[pos.LinePosition, pos.ColumnPosition] = true;
             }
 
+            pos.DefineValues(Position.LinePosition + 1, Position.ColumnPosition + 2);
+            if (Gmbd.ValidPositon(pos) && CanMove(pos))
+            {
+                mat[pos.LinePosition, pos.ColumnPosition] = true;
+            }
+
             pos.DefineValues(Position.LinePosition + 2, Position.ColumnPosition + 1);
             if (Gmbd.ValidPositon(pos) && CanMove(pos))
             {

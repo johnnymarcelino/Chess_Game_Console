@@ -8,7 +8,6 @@
 
         private Piece[,] Pieces;  // privativa, somente tabuleiro controla
 
-
         public GameBoard(int lines, int columns)
         {
             this.Lines = lines;
